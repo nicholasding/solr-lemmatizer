@@ -21,12 +21,13 @@ public class RTrie implements Trie {
 
     private Node root;
 
+    @Override
     public void put(String key, Object value) {
         root = put(root, key, value, 0);
     }
 
     protected Node put(Node node, String key, Object value, int level) {
-        if (node == null) node = new Node();
+        if (node == null) { node = new Node(); }
         if (level == key.length()) { node.value = value; return node; }
         Character c = key.charAt(level);
         node.children[c] = put(node.children[c], key, value, level + 1);
@@ -34,6 +35,7 @@ public class RTrie implements Trie {
         return node;
     }
 
+    @Override
     public Object get(String key) {
         Node node = get(root, key, 0);
         return node.value;
@@ -46,10 +48,12 @@ public class RTrie implements Trie {
         return get(node.children[c], key, level + 1);
     }
 
+    @Override
     public boolean contains(String key) {
         return get(key) != null;
     }
 
+    @Override
     public Iterator<String> keys() {
         List<String> collector = new LinkedList<String>();
         for (int i = 0; i < R; i++) {

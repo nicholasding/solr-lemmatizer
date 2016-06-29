@@ -20,8 +20,20 @@ public class TrieTest {
     }
 
     @Test
+    public void testTSTPut() {
+        Trie trie = new TernarySearchTree();
+        trie.put("ab", "ab");
+
+        Assert.assertEquals("ab", trie.get("ab"));
+    }
+
+    @Test
     public void testIterateAllKeys() {
-        Trie trie = new RTrie();
+        testTrie(new RTrie());
+        testTrie(new TernarySearchTree());
+    }
+
+    private void testTrie(Trie trie) {
         trie.put("ab", "ab");
         trie.put("bc", "bc");
         trie.put("cd", "cd");
@@ -31,5 +43,4 @@ public class TrieTest {
         Assert.assertEquals("bc", keys.next());
         Assert.assertEquals("cd", keys.next());
     }
-
 }

@@ -5,6 +5,7 @@ import com.nicholasding.search.lemmatization.Lemmatizer;
 import com.nicholasding.search.lemmatization.POS;
 import com.nicholasding.search.lemmatization.WordNetReader;
 import com.nicholasding.search.util.RTrie;
+import com.nicholasding.search.util.TernarySearchTree;
 import com.nicholasding.search.util.Trie;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class WordNetLemmatizer implements Lemmatizer {
      */
     public WordNetLemmatizer(WordNetReader reader) {
         exceptionList = reader.readExceptionList();
-        trie = new RTrie();
+        trie = new TernarySearchTree();
         for (String word : reader.readLemmas()) {
             trie.put(word, Boolean.TRUE);
         }
