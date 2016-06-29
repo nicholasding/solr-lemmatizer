@@ -59,13 +59,10 @@ public class RTrie implements Trie {
     }
 
     private void collect(Node node, String prefix, int level, List<String> collector) {
-        if (node != null) {
-            if (node.value != null) {
-                collector.add(prefix + node.key);
-            }
-            for (int i = 0; i < R; i++) {
-                collect(node.children[i], prefix + node.key, level + 1, collector);
-            }
+        if (node == null) return;
+        if (node.value != null) collector.add(prefix + node.key);
+        for (int i = 0; i < R; i++) {
+            collect(node.children[i], prefix + node.key, level + 1, collector);
         }
     }
 }

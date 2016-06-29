@@ -1,19 +1,22 @@
-package com.nicholasding.search.lemmatization;
+package com.nicholasding.search.lemmatization.impl;
 
+import com.nicholasding.search.lemmatization.ExceptionList;
+import com.nicholasding.search.lemmatization.Lemmatizer;
+import com.nicholasding.search.lemmatization.POS;
+import com.nicholasding.search.lemmatization.WordNetReader;
 import com.nicholasding.search.util.RTrie;
 import com.nicholasding.search.util.Trie;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Nicholas Ding (nicholasdsj@gmail.com) on 2016-06-28
  */
 public class WordNetLemmatizer implements Lemmatizer {
 
-    private List<Map<String, String>> exceptionLists;
     private Trie trie;
+    private ExceptionList exceptionList;
 
     /**
      * Default constructor will load the required resources and construct the trie.
@@ -21,9 +24,9 @@ public class WordNetLemmatizer implements Lemmatizer {
      * @param reader
      */
     public WordNetLemmatizer(WordNetReader reader) {
-        exceptionLists = reader.loadExceptionLists();
+        exceptionList = reader.readExceptionList();
         trie = new RTrie();
-        for (String word : reader) {
+        for (String word : reader.readLemmas()) {
             trie.put(word, Boolean.TRUE);
         }
     }
@@ -116,8 +119,7 @@ public class WordNetLemmatizer implements Lemmatizer {
     }
 
     protected String checkExceptionList(String word, POS pos) {
-        Map<String, String> exceptionList = exceptionLists.get(pos.ordinal);
-        return exceptionList.get(word);
+        return exceptionList.lookupException(word, pos);
     }
 
 }
