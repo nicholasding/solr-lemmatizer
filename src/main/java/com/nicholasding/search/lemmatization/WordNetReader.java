@@ -1,26 +1,20 @@
 package com.nicholasding.search.lemmatization;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
 /**
- * @author Nicholas Ding (nicholasdsj@gmail.com) on 2016-06-28.
+ * @author Nicholas Ding (nicholasdsj@gmail.com) on 2016-06-29
  */
-public class WordNetReader implements Iterable<String> {
+public interface WordNetReader {
 
-    private String dictPath;
+    /**
+     * @return exception list for four categories
+     */
+    ExceptionList readExceptionList();
 
-    public WordNetReader(String dictPath) {
-        this.dictPath = dictPath;
-    }
-
-    public List<Map<String, String>> loadExceptionLists() {
-        return null;
-    }
-
-    public Iterator<String> iterator() {
-        return null;
-    }
+    /**
+     * @return all the lemmas
+     */
+    Collection<String> readLemmas();
 
 }
