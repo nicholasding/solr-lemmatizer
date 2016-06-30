@@ -3,7 +3,6 @@ package com.nicholasding.search.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -12,28 +11,24 @@ import java.util.Iterator;
 public class TrieTest {
 
     @Test
-    public void testRTriePut() {
-        Trie trie = new RTrie();
-        trie.put("ab", "ab");
-
-        Assert.assertEquals("ab", trie.get("ab"));
+    public void testPut() {
+        testPut(new RTrie());
+        testPut(new TernarySearchTree());
     }
 
-    @Test
-    public void testTSTPut() {
-        Trie trie = new TernarySearchTree();
+    private void testPut(Trie trie) {
         trie.put("ab", "ab");
-
+        Assert.assertTrue(trie.contains("ab"));
         Assert.assertEquals("ab", trie.get("ab"));
     }
 
     @Test
     public void testIterateAllKeys() {
-        testTrie(new RTrie());
-        testTrie(new TernarySearchTree());
+        testTrieKeys(new RTrie());
+        testTrieKeys(new TernarySearchTree());
     }
 
-    private void testTrie(Trie trie) {
+    private void testTrieKeys(Trie trie) {
         trie.put("ab", "ab");
         trie.put("bc", "bc");
         trie.put("cd", "cd");

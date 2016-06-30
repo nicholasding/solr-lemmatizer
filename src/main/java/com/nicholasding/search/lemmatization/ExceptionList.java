@@ -1,5 +1,6 @@
 package com.nicholasding.search.lemmatization;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -7,23 +8,27 @@ import java.util.Map;
  */
 public class ExceptionList {
 
-    Map<String, String> nounExc, verbExc, adjectiveExc, adverbExc;
+    private Map<String, String> nounExc, verbExc, adjectiveExc, adverbExc;
 
     public ExceptionList() {}
 
     public void addExceptionList(POS pos, Map<String, String> map) {
         switch (pos) {
             case NOUN:
-                nounExc = map;
+                if (nounExc == null) nounExc = new HashMap<>();
+                nounExc.putAll(map);
                 break;
             case ADJECTIVE:
-                adjectiveExc = map;
+                if (adjectiveExc == null) adjectiveExc = new HashMap<>();
+                adjectiveExc.putAll(map);
                 break;
             case VERB:
-                verbExc = map;
+                if (verbExc == null) verbExc = new HashMap<>();
+                verbExc.putAll(map);
                 break;
             case ADVERB:
-                adverbExc = map;
+                if (adverbExc == null) adverbExc = new HashMap<>();
+                adverbExc.putAll(map);
                 break;
         }
     }
@@ -34,27 +39,36 @@ public class ExceptionList {
 
     public String lookupException(String word, POS pos) {
         if (pos == null) {
-            String exc = nounExc.get(word);
-            if (exc != null) return exc;
-            exc = verbExc.get(word);
-            if (exc != null) return exc;
-            exc = adjectiveExc.get(word);
-            if (exc != null) return exc;
-            exc = adverbExc.get(word);
-            if (exc != null) return exc;
-        } else {
-            switch (pos) {
-                case NOUN:
-                    return nounExc.get(word);
-                case ADJECTIVE:
-                    return adjectiveExc.get(word);
-                case VERB:
-                    return verbExc.get(word);
-                case ADVERB:
-                    return adverbExc.get(word);
+            String exc = lookupLists(word, nounExc, verbExc, adjectiveExc, adverbExc);
+            if (exc != null) {
+                return exc;
             }
+
+            return null;
         }
 
+        switch (pos) {
+            case NOUN:      return lookupList(word, nounExc);
+            case ADJECTIVE: return lookupList(word, adjectiveExc);
+            case VERB:      return lookupList(word, verbExc);
+            case ADVERB:    return lookupList(word, adverbExc);
+        }
+
+        return null;
+    }
+
+    private String lookupList(String word, Map<String, String> list) {
+        if (list != null) {
+            return list.get(word);
+        }
+
+        return null;
+    }
+
+    private String lookupLists(String word, Map<String, String>... lists) {
+        for (Map<String, String> list : lists) {
+            if (list != null && list.containsKey(word)) return list.get(word);
+        }
         return null;
     }
 

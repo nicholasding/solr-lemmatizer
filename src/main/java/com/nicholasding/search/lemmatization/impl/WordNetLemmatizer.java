@@ -24,15 +24,18 @@ public class WordNetLemmatizer implements Lemmatizer {
      *
      * @param reader
      */
-    public WordNetLemmatizer(WordNetReader reader) {
-        exceptionList = reader.readExceptionList();
-        trie = new TernarySearchTree();
+    public WordNetLemmatizer(WordNetReader reader, Trie trie) {
+        this.exceptionList = reader.readExceptionList();
+        this.trie = trie;
+
         for (String word : reader.readLemmas()) {
             trie.put(word, Boolean.TRUE);
         }
     }
 
     public String stem(String word, POS pos) {
+        if (word == null || word.length() == 0) return null;
+
         String exception = checkExceptionList(word, pos);
         if (exception != null) return exception;
 
