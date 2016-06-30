@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * An simple implementation of @see <a href="https://en.wikipedia.org/wiki/Ternary_search_tree">Ternary Search Tree</a>.
+ *
  * @author Nicholas Ding (nicholasdsj@gmail.com) on 2016-06-29
  */
 public class TernarySearchTree implements Trie {

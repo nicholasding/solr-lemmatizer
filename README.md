@@ -1,6 +1,6 @@
 # solr-lemmatizer
 
-This is a Solr analysis plugin that uses [WordNet](https://wordnet.princeton.edu/wordnet/documentation/) database to do [lemmatization](http://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) . 
+This is a Solr analysis plugin that uses [WordNet](https://wordnet.princeton.edu/wordnet/documentation/) database to do [lemmatization](http://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html).
 
 ```
 <fieldType name="text" class="solr.TextField">
@@ -27,3 +27,5 @@ By default, the code will use a bundled WordNet database. But you can specify yo
   </analyzer>
 </fieldType>
 ```
+
+For performance improvement, it uses an implementation of [Ternary Search Tree](https://en.wikipedia.org/wiki/Ternary_search_tree) to reduce memory usage and to provide average O(log n) lookup.
