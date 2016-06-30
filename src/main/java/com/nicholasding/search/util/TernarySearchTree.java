@@ -39,9 +39,8 @@ public class TernarySearchTree implements Trie {
 
     @Override
     public Object get(String key) {
-        if (root == null) return null;
-
         Node node = get(root, key, 0);
+        if (node == null) return null;
         return node.value;
     }
 

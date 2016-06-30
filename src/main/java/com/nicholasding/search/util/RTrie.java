@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class RTrie implements Trie {
 
-    private static final int R = 256;
+    private static final int R = 127;
 
     private static class Node {
         Object value;
@@ -38,6 +38,7 @@ public class RTrie implements Trie {
     @Override
     public Object get(String key) {
         Node node = get(root, key, 0);
+        if (node == null) return null;
         return node.value;
     }
 

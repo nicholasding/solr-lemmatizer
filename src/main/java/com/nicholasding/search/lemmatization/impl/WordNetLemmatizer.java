@@ -57,4 +57,8 @@ public class WordNetLemmatizer implements Lemmatizer {
         return exceptionList.lookupException(word, pos);
     }
 
+    protected Trie getTrie() {
+        return trie;
+    }
+
 }
