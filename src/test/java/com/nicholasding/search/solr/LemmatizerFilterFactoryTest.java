@@ -23,7 +23,7 @@ public class LemmatizerFilterFactoryTest extends BaseTokenStreamTestCase {
         final MockTokenizer in = new MockTokenizer(MockTokenizer.WHITESPACE, false);
         in.setReader(reader);
         TokenStream stream = factory.create(in);
-        assertTokenStreamContents(stream, new String[] { "it", "better", "work" });
+        assertTokenStreamContents(stream, new String[] { "it", "good", "work" });
     }
 
 }

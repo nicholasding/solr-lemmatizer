@@ -26,7 +26,7 @@ public class LemmatizerFilter extends TokenFilter {
             return false;
         } else {
             char[] termBuffer = this.termAtt.buffer();
-            String lemma = lemmatizer.stem(new String(termBuffer, 0, this.termAtt.length()), POS.NOUN);
+            String lemma = lemmatizer.stem(new String(termBuffer, 0, this.termAtt.length()), null);
             this.termAtt.copyBuffer(lemma.toCharArray(), 0, lemma.length());
             return true;
         }

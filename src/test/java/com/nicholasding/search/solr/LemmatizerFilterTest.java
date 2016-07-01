@@ -25,7 +25,7 @@ public class LemmatizerFilterTest extends BaseTokenStreamTestCase {
         final MockTokenizer in = new MockTokenizer(MockTokenizer.WHITESPACE, false);
         in.setReader(reader);
         TokenStream stream = new LemmatizerFilter(in, new WordNetLemmatizer(new PackagedWordNetReader("wordnet.zip"), new RTrie()));
-        assertTokenStreamContents(stream, new String[] { "it", "better", "work" });
+        assertTokenStreamContents(stream, new String[] { "it", "good", "work" });
     }
 
     @Test
@@ -37,7 +37,7 @@ public class LemmatizerFilterTest extends BaseTokenStreamTestCase {
         final MockTokenizer in = new MockTokenizer(MockTokenizer.WHITESPACE, false);
         in.setReader(reader);
         TokenStream stream = factory.create(in);
-        assertTokenStreamContents(stream, new String[] { "it", "better", "work" });
+        assertTokenStreamContents(stream, new String[] { "it", "good", "work" });
     }
 
     @Test

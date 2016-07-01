@@ -21,7 +21,7 @@ public class LemmatizerTest {
     @Test
     public void testStemShouldGetResultFromExceptionList() {
         Lemmatizer lemmatizer = new WordNetLemmatizer(new WordNetReaderStub(), new RTrie());
-        Assert.assertEquals("radius", lemmatizer.stem("radii", POS.NOUN));
+        Assert.assertEquals("radius", lemmatizer.stem("radii", null));
     }
 
     @Test

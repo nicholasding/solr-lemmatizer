@@ -9,6 +9,7 @@ import com.nicholasding.search.util.TernarySearchTree;
 import com.nicholasding.search.util.Trie;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -45,12 +46,25 @@ public class WordNetLemmatizer implements Lemmatizer {
         String exception = checkExceptionList(word, pos);
         if (exception != null) return exception;
 
-        String[] candidates = rules.apply(word, pos);
+        String[] candidates = transform(word, pos);
         for (String candidate : candidates) {
             if (trie.contains(candidate)) return candidate;
         }
 
         return word;
+    }
+
+    private String[] transform(String word, POS pos) {
+        if (pos != null) {
+            return rules.apply(word, pos);
+        } else {
+            List<String> candidates = new ArrayList<>();
+            Collections.addAll(candidates, rules.apply(word, POS.NOUN));
+            if (candidates.size() == 0) Collections.addAll(candidates, rules.apply(word, POS.VERB));
+            if (candidates.size() == 0) Collections.addAll(candidates, rules.apply(word, POS.ADJECTIVE));
+            if (candidates.size() == 0) Collections.addAll(candidates, rules.apply(word, POS.ADVERB));
+            return candidates.toArray(new String[0]);
+        }
     }
 
     protected String checkExceptionList(String word, POS pos) {
