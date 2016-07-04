@@ -19,8 +19,8 @@ public class LemmatizerFilterFactory extends TokenFilterFactory {
     private static final String KEY_DICT_PATH = "dictPath";
 
     private Lemmatizer lemmatizer;
-
-    protected LemmatizerFilterFactory(Map<String, String> args) {
+    
+    public LemmatizerFilterFactory(Map<String, String> args) {
         super(args);
 
         WordNetReader reader;
