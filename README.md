@@ -1,6 +1,8 @@
 # solr-lemmatizer
 
-This is a Solr analysis plugin that uses [WordNet](https://wordnet.princeton.edu/wordnet/documentation/) database to do [lemmatization](http://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html).
+A TokenFilter that applies [lemmatization](http://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) to lemmatize *English* words. It doesn't like stemmer that uses algorithm to drop the suffix, instead, it uses [WordNet](https://wordnet.princeton.edu/wordnet/documentation/) dictionary to lookup the base form of the word (lemma).
+
+For example, word *better* will be lemmatized to *good*, and *radii* will be lemmatized to *radius*.
 
 ```
 <fieldType name="text" class="solr.TextField">
