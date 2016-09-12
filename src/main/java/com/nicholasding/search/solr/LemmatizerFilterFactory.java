@@ -19,7 +19,7 @@ public class LemmatizerFilterFactory extends TokenFilterFactory {
     private static final String KEY_DICT_PATH = "dictPath";
 
     private Lemmatizer lemmatizer;
-    
+
     public LemmatizerFilterFactory(Map<String, String> args) {
         super(args);
 

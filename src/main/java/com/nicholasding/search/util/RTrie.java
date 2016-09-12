@@ -1,8 +1,10 @@
 package com.nicholasding.search.util;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is a R way trie implementation.
@@ -11,12 +13,10 @@ import java.util.List;
  */
 public class RTrie implements Trie {
 
-    private static final int R = 127;
-
     private static class Node {
         Object value;
         Character key;
-        Node[] children = new Node[R];
+        Map<Character, Node> children = new HashMap<>();
     }
 
     private Node root;
@@ -30,8 +30,10 @@ public class RTrie implements Trie {
         if (node == null) { node = new Node(); }
         if (level == key.length()) { node.value = value; return node; }
         Character c = key.charAt(level);
-        node.children[c] = put(node.children[c], key, value, level + 1);
-        node.children[c].key = c;
+
+        node.children.put(c, put(node.children.get(c), key, value, level + 1));
+        node.children.get(c).key = c;
+
         return node;
     }
 
@@ -46,7 +48,7 @@ public class RTrie implements Trie {
         if (node == null) return null;
         if (level == key.length()) return node;
         Character c = key.charAt(level);
-        return get(node.children[c], key, level + 1);
+        return get(node.children.get(c), key, level + 1);
     }
 
     @Override
@@ -57,17 +59,21 @@ public class RTrie implements Trie {
     @Override
     public Iterator<String> keys() {
         List<String> collector = new LinkedList<String>();
-        for (int i = 0; i < R; i++) {
-            collect(root.children[i], "", 1, collector);
+
+        for (Node n : root.children.values()) {
+            collect(n, "", 1, collector);
         }
+
         return collector.iterator();
     }
 
     private void collect(Node node, String prefix, int level, List<String> collector) {
         if (node == null) return;
         if (node.value != null) collector.add(prefix + node.key);
-        for (int i = 0; i < R; i++) {
-            collect(node.children[i], prefix + node.key, level + 1, collector);
+
+        for (Node n : node.children.values()) {
+            collect(n, prefix + node.key, level + 1, collector);
         }
     }
+
 }
