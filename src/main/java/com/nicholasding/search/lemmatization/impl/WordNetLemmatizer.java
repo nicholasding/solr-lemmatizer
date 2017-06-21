@@ -48,7 +48,7 @@ public class WordNetLemmatizer implements Lemmatizer {
 
         String[] candidates = transform(word, pos);
         for (String candidate : candidates) {
-            if (trie.contains(candidate)) return candidate;
+            if (!candidate.isEmpty() && trie.contains(candidate)) return candidate;
         }
 
         return word;

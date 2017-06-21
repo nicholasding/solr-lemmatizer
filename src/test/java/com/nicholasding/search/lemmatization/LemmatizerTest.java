@@ -44,4 +44,10 @@ public class LemmatizerTest {
         Assert.assertEquals("radius", lemmatizer.stem("radii", POS.NOUN));
     }
 
+    @Test
+    public void testWhenInputIsS() {
+        Lemmatizer lemmatizer = new WordNetLemmatizer(new PackagedWordNetReader("wordnet.zip"), new TernarySearchTree());
+        Assert.assertEquals("s", lemmatizer.stem("s", POS.NOUN));
+    }
+
 }
